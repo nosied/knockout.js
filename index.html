@@ -16,6 +16,10 @@
                 <input type="text" data-bind="value: inputValue">
                 <br>
                 <button class="btn btn-primary" data-bind="click: buttonAction">Ação</button>
+                <ul data-bind="foreach: list">
+                    <li data-bind="text: $data"></li>
+                </ul>
+                <br>
             </div>
         </div>
     </div>
@@ -25,11 +29,23 @@
         function viewModel(){
            var self = this;
 
-           self.labelText = "Label text";
-           self.inputValue = "Input Value";
+           self.labelText = ko.observable("Label text");
+           self.inputValue = ko.observable("Input Value");
+            self.list = ko.observableArray([39, 393, 474, 393, 3948, 74, 49, 2]);
+
            self.buttonAction = function (){
-                console.log("clicked button");
+                //console.log("clicked button");
+                self.list.push(self.inputValue);
            };
+
+           self.inputValue.subscribe(function(novoValor){ //subscribe "ouve" o atributo 
+                if(novoValor == "100"){
+                    self.labelText("Certo");
+                    self.dispose(); //Finaliza a inscrição.
+                }else{
+                    self.labelText("Errado");
+                }
+           });
         }
 
         vm = new viewModel();
