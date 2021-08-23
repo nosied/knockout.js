@@ -13,6 +13,10 @@
                 <br>
                 <br>
                 <label data-bind="text: labelText">Label</label>
+                <br>
+                <!--<h1 data-bind="text: computed"></h1>
+                <br>
+                <h1 data-bind="text: computedFunction()"></h1>-->
                 <input type="text" data-bind="value: inputValue">
                 <br>
                 <button class="btn btn-primary" data-bind="click: buttonAction">Ação</button>
@@ -38,14 +42,29 @@
                 self.list.push(self.inputValue);
            };
 
-           self.inputValue.subscribe(function(novoValor){ //subscribe "ouve" o atributo 
+           /*self.inputValue.subscribe(function(novoValor){ //subscribe "ouve" o atributo 
                 if(novoValor == "100"){
                     self.labelText("Certo");
                     self.dispose(); //Finaliza a inscrição.
                 }else{
                     self.labelText("Errado");
                 }
-           });
+           });*/
+
+           /*self.computed = ko.computed(function(){
+                return self.labelText() + " " + self.inputValue();
+           },this);*/ 
+
+           /*self.computed = ko.pureComputed(function(){
+                //this.inputValue = ko.observable("Outro Valor ");
+                return self.labelText() + " " + self.inputValue();
+           });*/
+           
+           /*self.computedFunction = function(){
+                return self.labelText() + " " + self.inputValue();
+           };*/
+
+
         }
 
         vm = new viewModel();
