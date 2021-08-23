@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Knockout</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br>
+                <br>
+                <label data-bind="text: labelText">Label</label>
+                <input type="text" data-bind="value: inputValue">
+                <br>
+                <button class="btn btn-primary" data-bind="click: buttonAction">Ação</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/knockout-3.5.1.js"></script>
+
+    <script>
+        function viewModel(){
+           var self = this;
+
+           self.labelText = "Label text";
+           self.inputValue = "Input Value";
+           self.buttonAction = function (){
+                console.log("clicked button");
+           };
+        }
+
+        vm = new viewModel();
+        ko.applyBindings(vm);
+    </script>
+</body>
+</html>
