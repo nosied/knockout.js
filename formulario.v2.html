@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .item-checked {
+            color: #ddd;
+            text-decoration: line-through;
+        }
+
+        .total {
+            padding: 0 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <br><br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Knockout Bindings</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 data-bind="text: propA"></h4>
+                                <button data-bind="click: function(){viewParent($data)}">View Parent</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-md-12"></div>
+                                            <div class="col-md-12"></div>
+                                            <div class="col-md-12"></div>
+                                            <div class="col-md-12"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4 data-bind="with: context2">
+                                            <span data-bind="text: propA"></span>
+                                            <button data-bind="click: function(){$parent.viewParent($data)}">View Context Child</button>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/knockout-3.5.1.js"></script>
+    <script>
+        function ViewModel() {
+
+            var self = this;
+            self.propA = ko.observable("PropA do Contexto principal");
+            self.viewParent = function(parent){
+                console.log(parent);
+            }
+
+            self.context2 = ko.observable({
+                propA: ko.observable("PropA do Contexto filho")
+            })
+        }
+
+        vm = new ViewModel();
+        ko.applyBindings(vm);
+    </script>
+</body>
+
+</html>
