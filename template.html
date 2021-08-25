@@ -29,7 +29,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12" data-bind="template:{name: 'cabecalho-template'}">
                             </div>
                         </div>
                         <div class="row">
@@ -75,7 +75,8 @@
         function ViewModel() {
 
             var self = this;
-           
+           self.tituloCabecalho = ko.observable("Título");
+           self.assuntoCabecalho = ko.observable("Assunto do cabeçalho");
         }
 
         vm = new ViewModel();
