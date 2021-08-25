@@ -37,11 +37,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="list-group">
-                                    <li class="list-group-item">
+                                    <li class="list-group-item" data-bind="foreach: lista">
                                         <div class="row">
-                                            <div class="col-md-12"></div>
-                                            <div class="col-md-12"></div>
-                                            <div class="col-md-12"></div>
+                                            <div class="col-md-12" data-bind="text: propA"></div>
+                                            <div class="col-md-12">
+                                                <button data-bind="click: function(){$parent.viewParent($element)}">View Context Child</button>
+                                            </div>
+                                            <div class="col-md-12" data-bind="attr: {id: 'texto-'+$index()}, html: $element.id"></div>
                                             <div class="col-md-12"></div>
                                         </div>
                                     </li>
@@ -75,7 +77,13 @@
 
             self.context2 = ko.observable({
                 propA: ko.observable("PropA do Contexto filho")
-            })
+            });
+
+            self.lista = ko.observableArray([
+                {propA: "PropA do elemento 1 do contexto filho criado pelo foreach"},
+                {propA: "PropA do elemento 2 do contexto filho criado pelo foreach"},
+                {propA: "PropA do elemento 3 do contexto filho criado pelo foreach"},
+            ]);
         }
 
         vm = new ViewModel();
