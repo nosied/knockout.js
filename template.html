@@ -34,16 +34,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-md-12"></div>
-                                            <div class="col-md-12">
-                                            </div>
-                                            <div class="col-md-12"></div>
-                                            <div class="col-md-12"></div>
-                                        </div>
-                                    </li>
+                                <ul class="list-group" data-bind="template:{name:'item-lista-template', foreach: lista}">
+                                </ul>
+                                <ul class="list-group" data-bind="template:{name:'item-lista-template', foreach: lista}">
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -77,6 +70,12 @@
             var self = this;
            self.tituloCabecalho = ko.observable("Título");
            self.assuntoCabecalho = ko.observable("Assunto do cabeçalho");
+
+           self.lista = ko.observableArray([
+               {titulo: "Titulo item 1", conteudo:"Conteudo item 1"},
+               {titulo: "Titulo item 2", conteudo:"Conteudo item 2"},
+               {titulo: "Titulo item 3", conteudo:"Conteudo item 3"},
+           ])
         }
 
         vm = new ViewModel();

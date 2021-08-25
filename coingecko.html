@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .img-responsive{
+            max-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-12">
+            <select name="" id="" class="form-control" data-bind="options:lista, optionsText: 'name'"></select>
+        </div>
+        <table class="col-md-12">
+            <!-- ko template:{name:'lista-criptos', foreach: (lista)} -->
+            <!-- /ko -->
+            <thead>
+                <td>#</td>
+                <td>Moeda</td>
+                <td>Preço</td>
+                <td>Market Cap</td>
+                <td>Movimento nas Ult. 24h</td>
+            </thead>
+        </table>
+    </div>
+    <script type="text/html" id="lista-criptos">
+        <tr>
+            <td><img data-bind="attr: {src: image}" class="img-responsive"></td>
+            <td data-bind="text: symbol.toUpperCase()+'/'+name"></td>
+            <td data-bind="text: 'US$ '+formataMoeda(current_price)"></td>
+            <td data-bind="text: 'US$ '+formataMoeda(market_cap)"></td>
+            <td data-bind="text: market_cap_change_percentage_24h.toFixed(2)+'%'"></td>
+        </tr>
+    </script>
+    <script src="js/knockout-3.5.1.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function formataMoeda(moeda){
+            return moeda.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})
+        }
+        function ViewModel() {
+
+            var self = this;
+            self.lista = ko.observableArray();
+            //self.lista = ko.observableArray([{ "id": "bitcoin", "name": "Bitcoin" }]);
+            $.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=250&page=1&sparkline=false", )
+            .done(function(data){
+                self.lista(data);
+            })
+            .fail(function(){
+                alert("Erro na Consulta");
+            });
+        }
+
+        vm = new ViewModel();
+        ko.applyBindings(vm);
+    </script>
+</body>
+
+</html>
